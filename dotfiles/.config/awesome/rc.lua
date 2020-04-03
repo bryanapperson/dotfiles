@@ -1,6 +1,10 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
+user = {
+    -- >> Screenshot Location << --
+    screenshot_dir = os.getenv("HOME") .. "/Pictures/Screenshots/",
+} 
 
 -- Standard awesome library
 local gears = require("gears")
@@ -14,8 +18,11 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+-- TODO Move monitor to helper module
 -- Multi monitor helper
 local xrandr = require("xrandr")
+-- Helper functions
+local helpers = require("helpers")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -230,6 +237,10 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+    -- Screenshots
+    awful.key( { }, "Print", function() helpers.screenshot("full") end,
+        {description = "take full screenshot", group = "screenshots"}),
+    -- Multi Monitor Setup
     awful.key({ modkey,           }, "d", function() xrandr.xrandr() end),
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),

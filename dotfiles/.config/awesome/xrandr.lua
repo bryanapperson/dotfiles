@@ -1,4 +1,4 @@
---- Separating Multiple Monitor functions as a separeted module (taken from awesome wiki)
+--- Separating Multiple Monitor functions as a seperated module (taken from awesome wiki)
 
 local gtable  = require("gears.table")
 local spawn   = require("awful.spawn")
