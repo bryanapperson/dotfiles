@@ -1,0 +1,12 @@
+[user]
+	signingkey = 2AF41DCE
+	email = me@bryanapperson.com
+	name = Bryan Apperson
+[color]
+	ui = auto
+[push]
+	default = upstream
+[merge]
+	conflictstyle = diff3
+[core]
+	editor = vim
