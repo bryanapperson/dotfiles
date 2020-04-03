@@ -1,3 +1,6 @@
 [submodule ".vim_runtime"]
 	path = .vim_runtime
 	url = git@github.com:amix/vimrc.git
+[submodule ".tmux"]
+	path = .tmux
+	url = git@github.com:gpakosz/.tmux
