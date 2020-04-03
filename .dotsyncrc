@@ -1,5 +1,6 @@
 [files]
 .dotsyncrc:.dotsyncrc
+.gitconfig:.gitconfig
 .my_configs.vim:.my_configs.vim
 .tmux:.tmux
 .tmux/.tmux.conf:.tmux.conf
@@ -11,6 +12,7 @@
 .config/awesome:.config/awesome
 .config/pulse/daemon.conf:.config/pulse/daemon.conf
 .config/alacritty:.config/alacritty
+.dir_colors:.dir_colors
 [endfiles]
 
 [hosts]
