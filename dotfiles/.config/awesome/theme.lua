@@ -11,37 +11,26 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "Concourse T3 Regular 12"
+-- Basic Font
+theme.font          = "Concourse C2 Bold 12"
 
--- Solarized Dark Colorscheme
+-- Basic Colors
+theme.bg_normal     = x.background
+theme.bg_focus      = x.color0
+theme.bg_urgent     = x.color0
+theme.bg_minimize   = x.background
+theme.bg_systray    = x.background
+theme.fg_normal     = x.foreground
+theme.fg_focus      = x.color14
+theme.fg_urgent     = x.color1
+theme.fg_minimize   = x.foreground
+theme.border_normal = x.background
+theme.border_focus  = x.color0
+theme.border_marked = x.color0
 
--- Base 03
-theme.bg_normal     = "#002b36"
--- Base 02
-theme.bg_focus      = "#073642"
--- Base 02
-theme.bg_urgent     = "#073642"
--- Base 03
-theme.bg_minimize   = "#002b36"
--- Same as bg_normal
-theme.bg_systray    = theme.bg_normal
--- Base 0
-theme.fg_normal     = "#839496"
--- Base 1
-theme.fg_focus      = "#93a1a1"
--- Red
-theme.fg_urgent     = "#dc322f"
--- Base 1
-theme.fg_minimize   = "#93a1a1"
 -- Gap and border width
-theme.useless_gap   = dpi(0)
-theme.border_width  = dpi(1)
--- Base 01
-theme.border_normal = "#586e75"
--- Base 00
-theme.border_focus  = "#657b83"
--- Base 0
-theme.border_marked = "#830496"
+theme.useless_gap   = dpi(3)
+theme.border_width  = dpi(2)
 
 -- There are other variable sets
 -- overriding the default one when

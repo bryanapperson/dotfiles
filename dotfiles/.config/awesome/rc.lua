@@ -25,7 +25,7 @@ local xrandr = require("xrandr")
 local helpers = require("helpers")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
+-- require("awful.hotkeys_popup.keys")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -53,8 +53,40 @@ end
 -- }}}
 
 -- {{{ Variable definitions
+
+-- Themes
+
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/bapperson/.config/awesome/theme.lua")
+local xrdb = beautiful.xresources.get_current_theme()
+-- Make dpi function global
+dpi = beautiful.xresources.apply_dpi
+-- Make xresources colors global, default to solarized dark
+x = {
+    --           xrdb variable      fallback
+    background = xrdb.background or "#002b36", -- Base 03
+    foreground = xrdb.foreground or "#657b83", -- Base 00
+    color0     = xrdb.color0     or "#073642", -- Base 02
+    color1     = xrdb.color1     or "#dc322f", -- Red
+    color2     = xrdb.color2     or "#859900", -- Green
+    color3     = xrdb.color3     or "#b58900", -- Yellow
+    color4     = xrdb.color4     or "#268bd2", -- Blue
+    color5     = xrdb.color5     or "#d33682", -- Magenta
+    color6     = xrdb.color6     or "#2aa198", -- Cyan
+    color7     = xrdb.color7     or "#eee8d5", -- Base 2
+    color8     = xrdb.color8     or "#002b36", -- Base 03
+    color9     = xrdb.color9     or "#cb4b16", -- Orange
+    color10    = xrdb.color10    or "#586e75", -- Base 01
+    color11    = xrdb.color11    or "#657b83", -- Base 00
+    color12    = xrdb.color12    or "#839496", -- Base 0
+    color13    = xrdb.color13    or "#6c71c4", -- Violet
+    color14    = xrdb.color14    or "#93a1a1", -- Base 1
+    color15    = xrdb.color15    or "#fdf6e3", -- Base 3
+}
+
+beautiful.init( os.getenv("HOME") .. "/.config/awesome/theme.lua")
+
+-- End Themes
+
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
@@ -209,18 +241,18 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+        expand = "none",
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+        mytextclock, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
-            wibox.widget.systray({visible = true }),
-            mytextclock,
+            wibox.widget.systray({visible = false }),
             s.mylayoutbox,
         },
     }
@@ -239,9 +271,10 @@ root.buttons(gears.table.join(
 globalkeys = gears.table.join(
     -- Screenshots
     awful.key( { }, "Print", function() helpers.screenshot("full") end,
-        {description = "take full screenshot", group = "screenshots"}),
+        {description = "take full screenshot", group = "awesome"}),
     -- Multi Monitor Setup
     awful.key({ modkey,           }, "d", function() xrandr.xrandr() end),
+    -- Navigation
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
@@ -324,9 +357,9 @@ globalkeys = gears.table.join(
               {description = "restore minimized", group = "client"}),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+	-- TODO Consider terminal dropdown here
+    awful.key({ modkey }, "r", function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
-
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {
@@ -337,9 +370,14 @@ globalkeys = gears.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+    -- Menu
+    awful.key({ modkey }, "p",
+	          function() awful.spawn.with_shell("rofi -matching fuzzy -show combi") end,
+              {description = "show the menu and switcher", group = "launcher"}),
+    -- Lock screen
+    awful.key({ modkey }, "l",
+	          function() awful.spawn.with_shell("light-locker-command -l") end,
+              {description = "lock the session", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -566,6 +604,12 @@ client.connect_signal("request::titlebars", function(c)
         layout = wibox.layout.align.horizontal
     }
 end)
+
+-- Startup applications
+-- Runs your autostart.sh script, which should include all the commands you
+-- would like to run every time AwesomeWM restarts
+-- ===================================================================
+awful.spawn.with_shell( os.getenv("HOME") .. "/.config/awesome/autostart.sh")
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
