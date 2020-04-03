@@ -12,7 +12,7 @@ local themes_path = gfs.get_themes_dir()
 local theme = {}
 
 -- Basic Font
-theme.font          = "Concourse C2 Bold 12"
+theme.font          = "Concourse C4 Regular 12"
 
 -- Basic Colors
 theme.bg_normal     = x.background
