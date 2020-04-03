@@ -4,3 +4,6 @@
 [submodule ".tmux"]
 	path = .tmux
 	url = git@github.com:gpakosz/.tmux
+[submodule "dotsync"]
+	path = dotsync
+	url = git@github.com:dotphiles/dotsync
