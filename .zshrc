@@ -61,11 +61,16 @@ plugins=(git rust)
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+# Editor
+alias vi="nvim"
+alias vim="nvim"
+
 # Preferred editor for local and remote sessions
     if [[ -n $SSH_CONNECTION ]]; then
+        # Remote may not have neovim
         export EDITOR='vim'
     else
-        export EDITOR='vim'
+        export EDITOR='nvim'
     fi
 
 # Compilation flags
@@ -82,7 +87,7 @@ plugins=(git rust)
     # Example aliases
     # alias zshconfig="mate ~/.zshrc"
     # alias ohmyzsh="mate ~/.oh-my-zsh"
-    alias vi="vim"
+    
 
     ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
     if [[ ! -d $ZSH_CACHE_DIR ]]; then
