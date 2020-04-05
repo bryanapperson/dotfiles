@@ -4,6 +4,12 @@ local awful = require("awful")
 local gears = require("gears")
 
 local hid = {}
+hid.hotkeys_popup = require("awful.hotkeys_popup")
+
+-- Enable hotkeys help widget for VIM and other apps
+-- when client with a matching name is opened:
+-- require("awful.hotkeys_popup.keys")
+
 
 -- {{{ Key bindings
 
@@ -13,7 +19,7 @@ altkey = "Alt"
 ctrlkey = "Control"
 shiftkey = "Shift"
 
-globalkeys = gears.table.join(
+hid.globalkeys = gears.table.join(
     -- Tag Navigation
     awful.key({ modkey,           }, "h",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -122,11 +128,11 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
     -- Help Screen
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey,           }, "s",      hid.hotkeys_popup.show_help,
               {description="show help", group="awesome"})
 )
 
-clientkeys = gears.table.join(
+hid.clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
             c.fullscreen = not c.fullscreen
@@ -174,7 +180,7 @@ clientkeys = gears.table.join(
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
-    globalkeys = gears.table.join(globalkeys,
+    hid.globalkeys = gears.table.join(hid.globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
@@ -235,7 +241,7 @@ hid.clientbuttons = gears.table.join(
 )
 
 -- Set keys
-root.keys(keys.globalkeys)
+root.keys(hid.globalkeys)
 -- }}}
 
 -- {{{ Mouse bindings
