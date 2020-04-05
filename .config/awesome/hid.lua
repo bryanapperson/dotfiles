@@ -4,6 +4,8 @@ local awful = require("awful")
 local gears = require("gears")
 
 local hid = {}
+-- Configure popup with keybinding information
+-- TODO fix this popup so full key combinations display
 hid.hotkeys_popup = require("awful.hotkeys_popup")
 
 -- Enable hotkeys help widget for VIM and other apps
@@ -116,6 +118,7 @@ hid.globalkeys = gears.table.join(
     -- Multi Monitor Setup
     awful.key({ modkey, "Control" }, "d", function() xrandr.xrandr() end),
     -- Menu - "d" because it is a dmenu replacement.
+    -- TODO figure out how to make this close with the same key combination
     awful.key({ modkey }, "d",
 	          function() awful.spawn.with_shell("rofi -matching fuzzy -show combi") end,
               {description = "show the menu and switcher", group = "launcher"}),
