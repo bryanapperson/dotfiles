@@ -61,16 +61,12 @@ plugins=(git rust)
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Editor
-alias vi="nvim"
-alias vim="nvim"
-
 # Preferred editor for local and remote sessions
     if [[ -n $SSH_CONNECTION ]]; then
         # Remote may not have neovim
         export EDITOR='vim'
     else
-        export EDITOR='nvim'
+        export EDITOR='vim'
     fi
 
 # Compilation flags

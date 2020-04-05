@@ -14,11 +14,15 @@ function run {
     fi
 }
 
+# TODO Maybe compton can be started from the lua scripting as well.
+
+run compton
+
 # TODO This file may be very temporary. These may be better called from lua
 # or just entirely rewritten as native widgets. I can likely use lain widgets.
 
 # Load terminal colorscheme and settings
-xrdb ~/.Xresources
+run xrdb ~/.Xresources
 
 # Network manager tray icon
 run nm-applet
@@ -30,4 +34,4 @@ run blueman-applet
 run pasystray
 
 # Lockscreen
-run light-locker
+run light-locker --lock-on-lid
