@@ -2,6 +2,7 @@
 
 local awful = require("awful")
 local gears = require("gears")
+local xrandr = require("xrandr")
 
 local hid = {}
 -- Configure popup with keybinding information
@@ -98,7 +99,7 @@ hid.globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit,
+    awful.key({ modkey, "Control"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
     -- Prompt
 	-- TODO Consider terminal dropdown here
@@ -116,14 +117,15 @@ hid.globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Multi Monitor Setup
-    awful.key({ modkey, "Control" }, "d", function() xrandr.xrandr() end),
+    awful.key({ modkey, "Control" }, "d", function() xrandr.xrandr() end,
+              {description = "Change multi display configuration", group = "awesome"}),
     -- Menu - "d" because it is a dmenu replacement.
     -- TODO figure out how to make this close with the same key combination
     awful.key({ modkey }, "d",
 	          function() awful.spawn.with_shell("rofi -matching fuzzy -show combi") end,
               {description = "show the menu and switcher", group = "launcher"}),
     -- Lock screen
-    awful.key({ modkey, "Shift" }, "l",
+    awful.key({ modkey, "Control" }, "l",
 	          function() awful.spawn.with_shell("light-locker-command -l") end,
               {description = "lock the session", group = "launcher"}),
     -- Show awesome menu

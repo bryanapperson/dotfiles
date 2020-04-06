@@ -17,6 +17,13 @@ nm_applet
 paprefs
 pasystray
 blueman
+unclutter
+```
+
+Optional
+
+```
+rofi-dmenu
 ```
 
 ### Lua
@@ -28,3 +35,10 @@ I didn't know lua, but now I know a bit
 ### GTK theme
 
 I built the gtk theme on numix using `oomox`.
+
+## Things to do
+
+Add proper widgets to reduce use of systray
+Reboot and shutdown key shortcuts
+Integrate `redshift` night mode
+
