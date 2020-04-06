@@ -18,6 +18,7 @@ paprefs
 pasystray
 blueman
 unclutter
+luarocks
 ```
 
 Optional
@@ -27,6 +28,8 @@ rofi-dmenu
 ```
 
 ### Lua
+
+`luarocks install power_widget`
 
 I didn't know lua, but now I know a bit
 

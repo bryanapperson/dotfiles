@@ -25,6 +25,8 @@ local xrandr = require("xrandr")
 local helpers = require("helpers")
 -- Human Interface Device configuration
 local hid = require("hid")
+local power = require("power_widget")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -80,7 +82,16 @@ x = {
     color14    = xrdb.color14    or "#93a1a1", -- Base 1
     color15    = xrdb.color15    or "#fdf6e3", -- Base 3
 }
-
+power.warning_config = {
+  percentage = 15,
+  message = "The battery is getting low",
+  preset = {
+    shape = gears.shape.rounded_rect,
+    timeout = 12,
+    bg = x.background,
+    fg = x.color3,
+  },
+}
 beautiful.init( os.getenv("HOME") .. "/.config/awesome/theme.lua")
 
 -- End Themes
@@ -253,6 +264,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray({visible = false }),
+            power,
             s.mylayoutbox,
         },
     }
