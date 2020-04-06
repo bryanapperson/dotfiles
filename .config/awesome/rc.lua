@@ -92,6 +92,7 @@ power.warning_config = {
     fg = x.color3,
   },
 }
+
 beautiful.init( os.getenv("HOME") .. "/.config/awesome/theme.lua")
 
 -- End Themes
@@ -101,6 +102,8 @@ terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
+-- TODO factor this out to widgets lua
+power.gui_client = terminal .. " -e " .. "watch upower -i /org/freedesktop/UPower/devices/battery_BAT0"
 -- TODO Consider moving to hid
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -285,7 +288,7 @@ awful.rules.rules = {
                      -- Mouse
                      buttons = hid.clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
      }
     },
 
@@ -326,13 +329,19 @@ awful.rules.rules = {
     },
     -- TODO Get steam working so it doesn't slide off screen.
     {
-        rule_any = {
-            class = {
-                "Steam",
-            },
-        },
-        properties = { titlebars_enabled = false },
-        },
+        rule_any = { {class = "Steam", class = "steam"} },
+        properties = {
+            border_width = 0,
+            border_color = 0,
+            size_hints_honor = false,
+			skip_decoration = true,
+			draw_backdrop = false,
+			switchtotag = true,
+			floating = false,
+			hide_titlebars = true,
+            fullscreen = false
+        }
+    }
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
@@ -350,8 +359,10 @@ client.connect_signal("manage", function (c)
       and not c.size_hints.user_position
       and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
+        awful.placement.no_overlap(c)
         awful.placement.no_offscreen(c)
     end
+
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.

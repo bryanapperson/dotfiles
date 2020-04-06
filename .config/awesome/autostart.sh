@@ -38,3 +38,4 @@ run light-locker --lock-on-lid
 
 # Make the mouse go away if I am not using it
 run unclutter
+
